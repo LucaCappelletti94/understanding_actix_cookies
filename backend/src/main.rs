@@ -68,12 +68,16 @@ async fn fake_logout() -> impl Responder {
         .max_age(ActixWebDuration::ZERO)
         .http_only(true)
         .finish();
-    
-    // We return the cookie
-    HttpResponse::Found()
+
+    // // We return the cookie
+    HttpResponse::Ok()
         .cookie(cookie)
-        .append_header((LOCATION, "/"))
         .finish()
+}
+
+#[get("/api/hello")]
+async fn hello() -> impl Responder {
+    HttpResponse::Ok().body("Hello world!")
 }
 
 #[actix_rt::main]
@@ -97,6 +101,7 @@ async fn main() -> std::io::Result<()> {
             .service(delete_cookie)
             .service(fake_callback)
             .service(fake_logout)
+            .service(hello)
             // We add support for CORS requests
             .wrap(cors)
             // limit the maximum amount of data that server will accept

@@ -16,6 +16,11 @@ pub async fn delete_cookie() {
     Request::delete("/api/cookie").send().await.unwrap();
 }
 
+pub async fn logout() {
+    // Makes a request to the /api/cookie endpoint
+    Request::get("/api/logout").send().await.unwrap();
+}
+
 #[function_component]
 /// A simple component that makes a request to the /api/cookie endpoint
 /// with a button to trigger the request.
@@ -29,6 +34,12 @@ pub fn App() -> Html {
     let delete_cookie = Callback::from(move |_| {
         wasm_bindgen_futures::spawn_local(async move {
             delete_cookie().await;
+        });
+    });
+
+    let logout = Callback::from(move |_| {
+        wasm_bindgen_futures::spawn_local(async move {
+            logout().await;
         });
     });
 
@@ -49,7 +60,9 @@ pub fn App() -> Html {
             <li><button onclick={make_cookie}>{"Make Cookie"}</button></li>
             <li><button onclick={delete_cookie}>{"Delete Cookie"}</button></li>
             <li><a href={oauth_url}>{"Authorize"}</a></li>
-            <li><a href="/api/logout">{"Logout"}</a></li>
+            <li><button onclick={logout}>{"Logout"}</button></li>
+            <li><a href="/api/hello">{"Hello"}</a></li>
+            <li><a href="/">{"Home"}</a></li>
         </ul>
     }
 }
