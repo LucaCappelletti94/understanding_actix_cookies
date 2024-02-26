@@ -4,6 +4,7 @@ use actix_web::cookie::Cookie;
 use actix_web::http::header;
 use actix_web::HttpResponse;
 use actix_web::Responder;
+use actix_web::http::header::LOCATION;
 use actix_web::{get, delete, web, App, HttpServer};
 
 #[get("/api/cookie")]
@@ -15,9 +16,10 @@ async fn make_cookie() -> impl Responder {
         .http_only(true)
         .finish();
     // We return the cookie
-    HttpResponse::Ok()
+    HttpResponse::Found()
+        .append_header((LOCATION, "/"))
         .cookie(cookie)
-        .body("Cookie has been set")
+        .finish()
 }
 
 #[delete("/api/cookie")]
@@ -29,9 +31,11 @@ async fn delete_cookie() -> impl Responder {
         .http_only(true)
         .finish();
     // We return the cookie
-    HttpResponse::Ok()
+    
+    HttpResponse::Found()
+        .append_header((LOCATION, "/"))
         .cookie(cookie)
-        .body("Cookie has been deleted")
+        .finish()
 }
 
 #[actix_rt::main]
