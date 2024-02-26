@@ -1,3 +1,8 @@
+//! A simple example of making a request to the /api/cookie endpoint
+extern crate serde_derive;
+extern crate serde_qs;
+
+use commons::OauthData;
 use reqwasm::http::Request;
 use yew::prelude::*;
 
@@ -27,11 +32,25 @@ pub fn App() -> Html {
         });
     });
 
+    let state = web_sys::window().unwrap().location().href().unwrap();
+
+    let query = OauthData {
+        client_id: "our_muckup_server".to_string(),
+        scope: "read".to_string(),
+        state,
+    };
+
+    let query = serde_qs::to_string(&query).unwrap();
+
+    let oauth_url = format!("http://localhost:9999/oauth/authorize?{}", query);
+
     html! {
-        <div>
-            <button onclick={make_cookie}>{"Make Cookie"}</button>
-            <button onclick={delete_cookie}>{"Delete Cookie"}</button>
-        </div>
+        <ul>
+            <li><button onclick={make_cookie}>{"Make Cookie"}</button></li>
+            <li><button onclick={delete_cookie}>{"Delete Cookie"}</button></li>
+            <li><a href={oauth_url}>{"Authorize"}</a></li>
+            <li><a href="/api/logout">{"Logout"}</a></li>
+        </ul>
     }
 }
 fn main() {

@@ -1,5 +1,5 @@
 [package]
-name = "backend"
+name = "oauth"
 version = "0.1.0"
 edition = "2021"
 
@@ -8,6 +8,9 @@ actix-web = {version="4.5", features=["cookies"]}
 actix-cors = "0.7.0"
 actix-rt = "2.9.0"
 log = "0.4.20"
+commons = {path = "../commons"}
 serde = { version = "1.0.195", features = ["derive"] }
 serde_json = "1.0"
-commons = { path = "../commons" }
+reqwest = "0.11.24"
+serde_qs = "0.12.0"
+serde_derive = "1.0.197"
