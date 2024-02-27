@@ -1,5 +1,8 @@
 # understanding_actix_cookies
-A small repo to understand an issue with Actix Cookies in some production settings.
+A small repo to understand an issue with Actix Cookies in some development & production settings.
+
+## The problem
+For some yet not understood reason, the cookies are being set in the backend but not being transmitted to the frontend in some combinations of servers and clients. This repo is an attempt to understand the problem and find a solution. If we figure out anything, you will see it explained here.
 
 ## Starting the backend
 To start the backend, use `cargo-watch`:
