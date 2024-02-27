@@ -4,7 +4,7 @@ A small repo to understand an issue with Actix Cookies in some development & pro
 ## The problem
 For some yet not understood reason, the cookies are being set in the backend but not being transmitted to the frontend in some combinations of servers and clients. This repo is an attempt to understand the problem and find a solution. If we figure out anything, you will see it explained here.
 
-The issue seems to be related to specifically using the Firefox browser and the `actix-web` server. The cookies are being set in the server, but they are not being transmitted to the client. This is not happening with other browsers. This has likely something to do with their security settings, but we are not sure what they expect us to do.
+The issue seems to be related to specifically using the Firefox browser and the `actix-web` server. The cookies are being set in the server, but they are not being transmitted to the client. This is not happening with other browsers. [This has likely something to do with Firefox cookie security settings](https://support.mozilla.org/en-US/kb/introducing-total-cookie-protection-standard-mode), but we are not sure what they expect us to do.
 
 ## Starting the backend
 To start the backend, use `cargo-watch`:
